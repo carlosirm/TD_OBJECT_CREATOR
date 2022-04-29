@@ -1,5 +1,6 @@
 import teradatasql
 import os
+import shutil # libreria que permite borrar las carpetas de windows que no estan vacias.
 import  csv ## llamada a la libreria csv.
 
 # CREA DIRECTORIOS A PARTIR DE LO LEIDO EN EL ARCHIVO td_db_objects.txt
@@ -28,11 +29,11 @@ def directory_creator(lectura):
 	print ("Creando directorios...")
 	
 	try:
-		os.makedirs("TERADATA/D_DW_VIEWS")
-		os.makedirs("TERADATA/D_DMT_VIEWS")
-		os.makedirs("TERADATA/D_VIN_VIEWS")
-		os.makedirs("TERADATA/ALL_TABLES")
-		os.makedirs("TERADATA/ALL_VIEWS")
+		os.makedirs("C:/TERADATA/D_DW_VIEWS")
+		os.makedirs("C:/TERADATA/D_DMT_VIEWS")
+		os.makedirs("C:/TERADATA/D_VIN_VIEWS")
+		os.makedirs("C:/TERADATA/ALL_TABLES")
+		os.makedirs("C:/TERADATA/ALL_VIEWS")
 	except FileExistsError :
 		print ("Aviso: El directorio D_D##_VIEWS ya existe")
 	
@@ -45,8 +46,8 @@ def directory_creator(lectura):
 
 	for index in range(0,len(db_schema)):
 		try:
-		   os.makedirs("TERADATA/"+db_schema[index])
-		   os.makedirs("TMP/"+db_schema[index])
+		   os.makedirs("C:/TERADATA/"+db_schema[index])
+		   os.makedirs("C:/TMP/"+db_schema[index])
 		except FileExistsError :
 		   print ("Aviso: El directorio "+ db_schema[index]+ " ya existe")
    
@@ -55,14 +56,15 @@ def directory_creator(lectura):
 	#retorna base.tabla que será usado en otras clases.
 	return (base_tabla)
 
+# eliminar los directorios temporales que se estan usando.
 def remove_directory():
-	os.rmdir('TMP')
-	os.rmdir('D_STAGING')
-	os.rmdir('D_DW_TABLES')
-	os.rmdir('D_DMT_TABLES')
-	os.rmdir('D_DW_VIEWS')
-	os.rmdir('D_DMT_VIEWS')
-	os.rmdir('D_VIN_VIEWS')
+	shutil.rmtree('C:/TMP')
+	#shutil.rmtree('C:/D_STAGING')
+	#shutil.rmtree('C:/D_DW_TABLES')
+	#shutil.rmtree('C:/D_DMT_TABLES')
+	#shutil.rmtree('C:/D_DW_VIEWS')
+	#shutil.rmtree('C:/D_DMT_VIEWS')
+	#shutil.rmtree('C:/D_VIN_VIEWS')
 	return ("Directorio TMP Borrado")
 	
 	

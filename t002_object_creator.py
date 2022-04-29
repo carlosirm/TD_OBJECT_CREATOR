@@ -23,7 +23,7 @@ def object_creator(login_data):
 
     for registro in base_tabla:
         registro = [x.upper() for x in registro] #convertir las base_tabla a mayusculas
-        dwtbl_out_file = open("TMP/"+registro[0]+"/"+registro[1]+'.txt', "w", encoding="utf8")
+        dwtbl_out_file = open("C:/TMP/"+registro[0]+"/"+registro[1]+'.txt', "w", encoding="utf8")
         print ("     OK: Consultando la tabla..."+registro[0]+"."+registro[1])
         sql = "SHOW TABLE "+registro[0]+"."+registro[1]
         #print (sql)
@@ -40,8 +40,8 @@ def object_creator(login_data):
         tbl_a_vistas=['D_DW_TABLES','D_VIN_TABLES','D_DMT_TABLES']
         if registro[0] in tbl_a_vistas:
             print ("Generando vista "+registro[0]+"."+registro[1])
-            dw_out_file = open("TERADATA/D_DW_VIEWS/"+registro[1]+'.sql', "w", encoding="utf8")
-            dmt_out_file = open("TERADATA/D_DMT_VIEWS/"+registro[1]+'.sql', "w", encoding="utf8")
+            dw_out_file = open("C:/TERADATA/D_DW_VIEWS/"+registro[1]+'.sql', "w", encoding="utf8")
+            dmt_out_file = open("C:/TERADATA/D_DMT_VIEWS/"+registro[1]+'.sql', "w", encoding="utf8")
             sql2 = "exec XA52251.DW_VIEW_CREATOR (  '"+registro[0]+"', UPPER('"+registro[1]+"'))"
            
             cursor2.execute(sql2)
@@ -62,5 +62,10 @@ lectura = td_txt_reader()
 login_data = get_login_data(lectura)
 base_tabla = directory_creator(lectura)
 
+print ('object_creator(login_data) ')
 object_creator(login_data)
+
+print ('object_writer(base_tabla)')
 object_writer(base_tabla)
+
+#remove_directory() # da error al borrar porque el directorio no esta vacio

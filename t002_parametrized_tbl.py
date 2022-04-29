@@ -10,8 +10,8 @@ def object_writer(objetos):
 	
 	for registro in objetos:
 		registro = [x.upper() for x in registro] #convertir las base_tabla a mayusculas
-		input_file = open("TMP/"+registro[0]+"/"+registro[1]+'.txt', "r", encoding="utf8")
-		output_file = open("TERADATA/"+registro[0]+"/"+registro[1]+'.sql', "w", encoding="utf8")
+		input_file = open("C:/TMP/"+registro[0]+"/"+registro[1]+'.txt', "r", encoding="utf8")
+		output_file = open("C:/TERADATA/"+registro[0]+"/"+registro[1]+'.sql', "w", encoding="utf8")
 		output_file.write("SELECT 1 FROM dbc.tablesv\n")
 		output_file.write("WHERE databasename = '" + registro[0].replace("D_","${DW_AMBIENTE}_") + "' AND TRIM(TABLENAME) = '"+registro[1]+"';\n\n")
 		output_file.write(".IF ACTIVITYCOUNT = 0 THEN .GOTO NEXT\n\n")
