@@ -8,7 +8,7 @@ from t002_parametrized_tbl import object_writer
 
 
 
-def object_creator(login_data):
+def object_creator(login_data, base_tabla):
 
     print("Conectando a la Base de Datos")
     con = teradatasql.connect(host=login_data[0], user=login_data[1], password=login_data[2])
@@ -58,7 +58,7 @@ def object_creator(login_data):
             dmt_out_file.close()
     return 0
 
-
+"""
 lectura = td_txt_reader()
 login_data = get_login_data(lectura)
 base_tabla = directory_creator(lectura)
@@ -70,4 +70,4 @@ print ('object_writer(base_tabla)')
 object_writer(base_tabla)
 
 #remove_directory() 
-
+"""

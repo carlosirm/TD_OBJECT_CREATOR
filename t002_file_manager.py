@@ -30,17 +30,8 @@ def directory_creator(lectura):
 	base_tabla=[]
 	print ("Creando directorios...")
 
-	try:
-		os.makedirs("C:/TERADATA/D_DW_VIEWS")
-		os.makedirs("C:/TERADATA/D_DMT_VIEWS")
-		os.makedirs("C:/TERADATA/D_VIN_VIEWS")
-		os.makedirs("C:/TERADATA/ALL_TABLES")
-		os.makedirs("C:/TERADATA/ALL_VIEWS")
-	except FileExistsError :
-		print ("Aviso: El directorio D_D##_VIEWS ya existe")
-
 	for reg in lectura:
-		db_schema.append(reg[0])
+		db_schema.append(reg[0].upper())
 		base_tabla.append(reg)
 
 	db_schema=list(set(db_schema))
@@ -48,10 +39,14 @@ def directory_creator(lectura):
 
 	for index in range(0,len(db_schema)):
 		try:
-		   os.makedirs("C:/TERADATA/"+db_schema[index])
-		   os.makedirs("C:/TMP/"+db_schema[index])
+			os.makedirs("C:/TMP/"+db_schema[index])
+			os.makedirs("C:/TERADATA/"+db_schema[index])
+		   
 		except FileExistsError :
 		   print ("Aviso: El directorio "+ db_schema[index]+ " ya existe")
+		   """aqui fallaba el programa porque al existir la ruta C:/Teradata saltaba a la excepcion
+		   y no llegaba a crear el directorio TMP, lo que hacia que fallara el metodo object_creator al
+		   no tener disponible el directorio TMP. """
 
 
 	in_file.close()
@@ -61,14 +56,8 @@ def directory_creator(lectura):
 	
 def remove_directory():
 	shutil.rmtree('C:/TMP')
-	#shutil.rmtree('C:/D_STAGING')
-	#shutil.rmtree('C:/D_DW_TABLES')
-	#shutil.rmtree('C:/D_DMT_TABLES')
-	#shutil.rmtree('C:/D_DW_VIEWS')
-	#shutil.rmtree('C:/D_DMT_VIEWS')
-	#shutil.rmtree('C:/D_VIN_VIEWS')
-	return ("Directorio TMP Borrado")
-		
+	return ("Directorio TMP y TERADATA Borrados")
+
 #td_txt_reader()	
 
 	

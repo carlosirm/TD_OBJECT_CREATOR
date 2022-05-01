@@ -11,10 +11,10 @@ lectura = td_txt_reader()
 login_data = get_login_data(lectura)
 base_tabla = directory_creator(lectura)
 
-print ('object_creator(login_data) ')
-object_creator(login_data)
+print ('Llamando a object_creator(login_data) ')
+object_creator(login_data, base_tabla)
 
-print ('object_writer(base_tabla)')
+print ('Llamando a object_writer(base_tabla)')
 object_writer(base_tabla)
 
-#remove_directory() 
+remove_directory() 
