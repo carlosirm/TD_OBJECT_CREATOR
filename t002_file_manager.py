@@ -6,8 +6,8 @@ import  csv ## llamada a la libreria csv.
 # CREA DIRECTORIOS A PARTIR DE LO LEIDO EN EL ARCHIVO td_db_objects.txt
 
 
-def td_txt_reader():
-	in_file = open("td_db_objects.txt", "r", encoding="utf8")
+def td_txt_reader(file_name):
+	in_file = open( file_name , "r", encoding="utf8")
 	lectura = csv.reader(in_file, delimiter=',')
 	
 	return (lectura)

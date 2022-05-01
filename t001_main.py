@@ -7,7 +7,7 @@ from t002_object_creator import object_creator
 
 
 
-lectura = td_txt_reader()
+lectura = td_txt_reader('td_db_objects.txt')
 login_data = get_login_data(lectura)
 base_tabla = directory_creator(lectura)
 
