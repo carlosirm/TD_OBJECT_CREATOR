@@ -58,6 +58,7 @@ def object_creator(login_data):
             dmt_out_file.close()
     return 0
 
+
 lectura = td_txt_reader()
 login_data = get_login_data(lectura)
 base_tabla = directory_creator(lectura)
@@ -68,4 +69,5 @@ object_creator(login_data)
 print ('object_writer(base_tabla)')
 object_writer(base_tabla)
 
-#remove_directory() # da error al borrar porque el directorio no esta vacio
+#remove_directory() 
+
