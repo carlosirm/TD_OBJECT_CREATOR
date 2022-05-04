@@ -1,2 +1,2 @@
 192.168.183.128,XA52251,teradev
-D_DW_TABLES,DATOS_PERSONALES
+D_dw_tables,DATOS_personales

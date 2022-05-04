@@ -6,9 +6,14 @@ import  csv ## llamada a la libreria csv.
 def object_writer(objetos):
 	
 
+	print (type(objetos))
+
 	#objetos = [['D_DW_TABLES','NOSIS_PARTY_TELEPHONE'],['D_DW_TABLES','NOSIS_SITUATION']]
 	
-	for registro in objetos:
+	
+	for registro in objetos['base_tablas']:
+		print ('imprimiendo registro')
+		print (registro)
 		registro = [x.upper() for x in registro] #convertir las base_tabla a mayusculas
 		input_file = open("C:/TMP/"+registro[0]+"/"+registro[1]+'.txt', "r", encoding="utf8")
 		output_file = open("C:/TERADATA/"+registro[0]+"/"+registro[1]+'.sql', "w", encoding="utf8")

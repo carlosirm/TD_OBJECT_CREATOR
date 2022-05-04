@@ -1,0 +1,4 @@
+TABLES_DATABASE,VIEWS_DATABASE
+d_dw_tables,d_dw_views
+d_dmt_tables, d_dmt_views
+d_vin_tables, d_vin_views
