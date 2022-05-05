@@ -5,26 +5,39 @@ import  csv ## llamada a la libreria csv.
 
 # CREA DIRECTORIOS A PARTIR DE LO LEIDO EN EL ARCHIVO td_db_objects.txt
 
-
-def td_txt_reader(file_name):
+"""
+Lee un objeto txt
+"""
+def txt_reader(file_name):
 	in_file = open( file_name , "r", encoding="utf8")
-	lectura = csv.reader(in_file, delimiter=',')
+	txt_read = csv.reader(in_file, delimiter=',')
 	
-	return (lectura)
+	return (txt_read)
 
-
-def get_header_data(lectura):
+#retorna los datos de logueo.
+def get_txt_header(txt_read):
     
-	header_data = next(lectura)
+	header_data = next(txt_read)
 	print ("Obteniendo datos de autenticación...")
-	return (header_data) #retorna los datos de logueo.
+	return (header_data) 
+
+def get_txt_data(file_name):
+	"""txt_reader(file_name)
+	db_objects_list = next(txt_reader(file_name))"""
+	db_objects_list = open( file_name , "r", encoding="utf8")
+	
+	print (db_objects_list)
+	for objec in db_objects_list:
+		print (objec)
+	print ("Obteniendo datos de autenticación...")
+	return (db_objects_list) 
 
 
 
-def directory_creator(lectura, lectura_tvr):
+def directory_creator(txt_read, txt_read_tvr):
 
 	in_file = open("td_db_objects.txt", "r", encoding="utf8")
-	#header_data = next(lectura)
+	#header_data = next(txt_read)
 	#user = header_data[0]
 	#password = header_data[0]
 	db_schema=[]
@@ -35,13 +48,14 @@ def directory_creator(lectura, lectura_tvr):
 
 
 	# Crear las carpetas de las bases de datos (schema)
-	for reg in lectura:
+	for reg in txt_read:
+		print (reg)
 		db_schema.append(reg[0].upper())
 		base_tabla.append(reg)
 
 	db_schema=list(set(db_schema))
 
-	for tvr in lectura_tvr:
+	for tvr in txt_read_tvr:
 		"""print (tvr)
 		print (tvr[0])
 		print (db_schema)"""
@@ -81,7 +95,7 @@ def remove_directory():
 	shutil.rmtree('C:/TERADATA')
 	return ("Directorio TMP y TERADATA Borrados")
 
-#td_txt_reader()	
+#txt_reader()	
 
 	
 

@@ -1,6 +1,6 @@
 import teradatasql
 import os
-from t002_file_manager import directory_creator, td_txt_reader, get_header_data, remove_directory
+from t002_file_manager import directory_creator, txt_reader, get_txt_header, remove_directory
 from t002_parametrized_tbl import object_writer
  
 
@@ -18,7 +18,7 @@ def object_creator(header_data, info_databases):
     cursor4 = con.cursor()
 
     
-    #print (lectura[0])
+    #print (txt_read[0])
     #base_tabla = [x.upper() for x in base_tabla]
 
     for registro in info_databases['base_tablas']:
@@ -56,9 +56,9 @@ def object_creator(header_data, info_databases):
     return 0
 
 """
-lectura = td_txt_reader()
-header_data = get_header_data(lectura)
-base_tabla = directory_creator(lectura)
+txt_read = td_txt_reader()
+header_data = get_txt_header(txt_read)
+base_tabla = directory_creator(txt_read)
 
 print ('object_creator(header_data) ')
 object_creator(header_data)
