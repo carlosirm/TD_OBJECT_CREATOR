@@ -6,31 +6,70 @@ import  csv ## llamada a la libreria csv.
 # CREA DIRECTORIOS A PARTIR DE LO LEIDO EN EL ARCHIVO td_db_objects.txt
 
 """
-Lee un objeto txt
+Function: txt_reader
+Reads a txt file.
+in: file_name (string) 
+out: txt_read ('_csv.reader')
 """
 def txt_reader(file_name):
 	in_file = open( file_name , "r", encoding="utf8")
 	txt_read = csv.reader(in_file, delimiter=',')
+	#print (type (txt_read))
 	
 	return (txt_read)
 
-#retorna los datos de logueo.
+"""
+Function: get_txt_header
+return the first line of a txt file. 
+in: txt_read ('_csv.reader')
+out: header_data ('list')
+"""
 def get_txt_header(txt_read):
     
 	header_data = next(txt_read)
 	print ("Obteniendo datos de autenticación...")
+	#print (type (header_data))
 	return (header_data) 
 
+
+"""
+Function: get_txt_data
+return the data content of a txt in a csv.reader format to be iterated.
+in: file_name (string) 
+out: csv_data ('_csv.reader')
+"""
 def get_txt_data(file_name):
-	"""txt_reader(file_name)
-	db_objects_list = next(txt_reader(file_name))"""
-	db_objects_list = open( file_name , "r", encoding="utf8")
+
+	csv_data = txt_reader(file_name)
+	next(csv_data)
+
+	#in_file = open( file_name , "r", encoding="utf8")
+	#csv_data = csv.reader(in_file, delimiter=',')
+	#print (csv_data)
 	
-	print (db_objects_list)
-	for objec in db_objects_list:
-		print (objec)
-	print ("Obteniendo datos de autenticación...")
-	return (db_objects_list) 
+	return (csv_data) 
+
+"""
+Function: get_folder_name
+Get all the folders to be created, including views folders
+in: csv_data_dbo ('_csv.reader') contains all distint tables to be created.
+in: csv_data_dbo ('_csv.reader') contains database views related database tables and enviroment variable for these databases
+out: folder_name (list)
+"""
+def get_folder_name (csv_data_dbo,csv_data_tvr):
+	folder_name =[]
+	#print (csv_data_dbo)
+	for l_data_dbo in csv_data_dbo:
+		#print (l_data_dbo)
+		folder_name.append(l_data_dbo[0].upper())
+		folder_name=list(set(folder_name))
+	print (folder_name)
+
+
+	return (folder_name)
+
+
+
 
 
 
