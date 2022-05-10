@@ -56,36 +56,30 @@ def get_folder_objets_list (data_dbo,data_tvr):
 	csv_data_tvr = list(data_tvr) # convertir a lista el objecto csv para que sea iterable
 	csv_data_dbo = list(data_dbo) # convertir a lista el objecto csv para que sea iterable
 	folder_objets_list = []
-	sub_list = []
 
-	it_num = 0
+	#it_num = 0
+	
 	for l_data_dbo in list(csv_data_dbo):
 		
-		it_num = it_num+1
-		print ('iteracion num: ' + str(it_num) )
+		#it_num = it_num+1
+		#print ('iteracion num : ' + str(it_num) )
 		#print (l_data_dbo)
-
+		#tvr_num = 0
+		#[value.upper() for value in letras]
 		for l_data_tvr in list(csv_data_tvr):
-			#print ('	lista dbo')
-			#print (l_data_dbo )
-			#print ('	Lista TVR')
-			#print (l_data_tvr )
-
+			#tvr_num = tvr_num + 1
+			#print ('	\niteracion_cd: ' + str(it_num) + str(tvr_num))
+			
 			print ('	objeto dbo: ' + l_data_dbo[0].upper() + ' objeto tvr: ' + l_data_tvr[0].upper())
+			temp_tvr = l_data_tvr[:]
 			if l_data_dbo[0].upper() == l_data_tvr[0].upper():
-				print ('		' + l_data_dbo[0].upper() + ' +  ' + l_data_tvr[0].upper())
-
-				
-				l_data_tvr.append(l_data_dbo[1].upper())	# and add tablename to complete the list.
+				#print ('		' + l_data_dbo[0].upper() + ' +  ' + l_data_tvr[0].upper())
+				temp_tvr.append(l_data_dbo[1].upper())	# and add tablename to complete the list.
 				#print ('		Objeto agregado a la lista')
-				#print ('		' + str(l_data_tvr))
-				folder_objets_list.append(l_data_tvr)
-				#print ('		Objeto folder_objets_list')
-				#print (folder_objets_list)
+				#print ('		' + str(temp_tvr))
+				folder_objets_list.append(temp_tvr)
 			
 
-	#print ('\nlista_final')
-	#print (folder_objets_list)
 	return (folder_objets_list)
 
 

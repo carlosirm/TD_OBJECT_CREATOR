@@ -25,11 +25,14 @@ valores = get_folder_objets_list (csv_data_dbo,csv_data_tvr )
 for v in valores:
 	print (v)
 
-"""
+
 letras = ['a','b','c','d','e']
 numeros = ['a','2','c','4','5']
 
-for l in letras:
+letras_mayusculas = [value.upper() for value in letras]
+print (letras_mayusculas)
+
+"""for l in letras:
 	for n in numeros:
 		if l == n:
 			print (l+n)

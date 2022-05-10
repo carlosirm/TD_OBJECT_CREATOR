@@ -1,5 +1,6 @@
 192.168.183.128,XA52251,teradev
 D_dw_tables,DATOS_personales
+D_dw_tables,calendario
 D_dmt_tables,tabla_de_pruebas
 d_staging,datos_personales
 d_staging,proveedores
