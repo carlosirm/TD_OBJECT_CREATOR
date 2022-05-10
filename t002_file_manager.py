@@ -49,6 +49,54 @@ def get_txt_data(file_name):
 	
 	return (csv_data) 
 
+
+
+def get_folder_objets_list (data_dbo,data_tvr):
+
+	csv_data_tvr = list(data_tvr) # convertir a lista el objecto csv para que sea iterable
+	csv_data_dbo = list(data_dbo) # convertir a lista el objecto csv para que sea iterable
+	folder_objets_list = []
+	sub_list = []
+
+	it_num = 0
+	for l_data_dbo in list(csv_data_dbo):
+		
+		it_num = it_num+1
+		print ('iteracion num: ' + str(it_num) )
+		#print (l_data_dbo)
+
+		for l_data_tvr in list(csv_data_tvr):
+			#print ('	lista dbo')
+			#print (l_data_dbo )
+			#print ('	Lista TVR')
+			#print (l_data_tvr )
+
+			print ('	objeto dbo: ' + l_data_dbo[0].upper() + ' objeto tvr: ' + l_data_tvr[0].upper())
+			if l_data_dbo[0].upper() == l_data_tvr[0].upper():
+				print ('		' + l_data_dbo[0].upper() + ' +  ' + l_data_tvr[0].upper())
+
+				
+				l_data_tvr.append(l_data_dbo[1].upper())	# and add tablename to complete the list.
+				#print ('		Objeto agregado a la lista')
+				#print ('		' + str(l_data_tvr))
+				folder_objets_list.append(l_data_tvr)
+				#print ('		Objeto folder_objets_list')
+				#print (folder_objets_list)
+			
+
+	#print ('\nlista_final')
+	#print (folder_objets_list)
+	return (folder_objets_list)
+
+
+"""
+D_dw_tables,DATOS_personales
+d_dmt_tables.direcciones
+
+d_dw_tables,d_dw_views,${DW_AMBIENTE}_DW_TABLES,${DW_AMBIENTE}_DW_VIEWS
+d_dmt_tables, d_dmt_views,${DW_AMBIENTE}_DW_TABLES, ${DW_AMBIENTE}_DMT_VIEWS
+d_vin_tables, d_vin_views,${DW_AMBIENTE}_DW_TABLES,${DW_AMBIENTE}_VIN_VIEWS"""
+
 """
 Function: get_folder_name
 Get all the folders to be created, including views folders
@@ -64,8 +112,6 @@ def get_folder_name (csv_data_dbo,csv_data_tvr):
 		folder_name.append(l_data_dbo[0].upper())
 		folder_name=list(set(folder_name))
 	print (folder_name)
-
-
 	return (folder_name)
 
 
