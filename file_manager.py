@@ -134,40 +134,15 @@ def get_folder_name (folder_objets_list):
 
 
 
-def directory_creator(txt_read, txt_read_tvr):
+def set_directory_creator(folder_name):
 
-	in_file = open("td_db_objects.txt", "r", encoding="utf8")
-	#header_data = next(txt_read)
-	#user = header_data[0]
-	#password = header_data[0]
-	db_schema=[]
-	base_tabla=[]
-	vistas_db = []
-	info_databases = {}
-	print ("Creando directorios...")
-
-
-	# Crear las carpetas de las bases de datos (schema)
-	for reg in txt_read:
-		print (reg)
-		db_schema.append(reg[0].upper())
-		base_tabla.append(reg)
-
-	db_schema=list(set(db_schema))
-
-	for tvr in txt_read_tvr:
-		"""print (tvr)
-		print (tvr[0])
-		print (db_schema)"""
-		if tvr[0].upper() in db_schema: # Si la tabla esta en la lista de carpetas a crear (table_databases)
-			# crear la carpeta de vista equivalente a la tabla
-			vistas_db.append(tvr) # agrego las bases de vistas a una lista.
-			try:
-				os.makedirs("C:/TMP/"+tvr[1].upper())
-				os.makedirs("C:/TERADATA/"+tvr[1].upper())
-				#print ('crear directorio de vistas ' + tvr[1]) 
-			except FileExistsError :
-		  		print ("\nAviso: El directorio de vistas "+ tvr[1].upper() + " ya existe")
+	for f in folder_name:
+		try:
+			os.makedirs("C:/TMP/"+ f)
+			os.makedirs("C:/TERADATA/"+ f)
+			#print ('crear directorio de vistas ' + tvr[1]) 
+		except FileExistsError :
+	  		print ("\nAviso: El directorio de vistas "+ f + " ya existe")
 
 
 	for index in range(0,len(db_schema)):
