@@ -24,7 +24,7 @@ valores = get_folder_objets_list (csv_data_dbo,csv_data_tvr )
 print (valores)
 print (len(valores))
 
-#print (get_folder_name (valores))
+print (get_folder_name (valores))
 
 """for v in valores:
 	print (v)
