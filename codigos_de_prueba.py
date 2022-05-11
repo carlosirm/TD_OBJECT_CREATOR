@@ -1,8 +1,8 @@
 import teradatasql
 import os
-from t002_file_manager import directory_creator, txt_reader, get_txt_header,get_txt_data, remove_directory,  get_folder_name, get_folder_objets_list
-from t002_parametrized_tbl import object_writer
-from t002_object_creator import object_creator
+from file_manager import set_directory_creator, txt_reader, get_txt_header,get_txt_data, remove_directory,  get_folder_name, get_folder_objets_list
+from parametrized_tbl import object_writer
+from object_creator import object_creator
  
 
 """
@@ -24,7 +24,10 @@ valores = get_folder_objets_list (csv_data_dbo,csv_data_tvr )
 print (valores)
 print (len(valores))
 
-print (get_folder_name (valores))
+carpeta = get_folder_name (valores)
+
+
+set_directory_creator(carpeta)
 
 """for v in valores:
 	print (v)

@@ -1,7 +1,7 @@
 import teradatasql
 import os
-from t002_file_manager import directory_creator, txt_reader, get_txt_header, remove_directory
-from t002_parametrized_tbl import object_writer
+from file_manager import set_directory_creator, txt_reader, get_txt_header, remove_directory
+from parametrized_tbl import object_writer
  
 
 # ARMA LAS DDL A PARTIR DE LA BASE Y EL NOMBRE DE LA TABLA.

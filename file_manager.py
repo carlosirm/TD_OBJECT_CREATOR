@@ -142,27 +142,8 @@ def set_directory_creator(folder_name):
 			os.makedirs("C:/TERADATA/"+ f)
 			#print ('crear directorio de vistas ' + tvr[1]) 
 		except FileExistsError :
-	  		print ("\nAviso: El directorio de vistas "+ f + " ya existe")
-
-
-	for index in range(0,len(db_schema)):
-
-		try:
-			os.makedirs("C:/TMP/"+db_schema[index])
-			os.makedirs("C:/TERADATA/"+db_schema[index])
-		   
-		except FileExistsError :
-		   print ("Aviso: El directorio "+ db_schema[index]+ " ya existe")
-		   """aqui fallaba el programa porque al existir la ruta C:/Teradata saltaba a la excepcion
-		   y no llegaba a crear el directorio TMP, lo que hacia que fallara el metodo object_creator al
-		   no tener disponible el directorio TMP. """
-
-
-	in_file.close()
-	
-	#retorna base.tabla en una clave y en otra devuelve las carpetas de vistas a crear que será usado en otras clases.
-	info_databases = {'base_tablas':base_tabla, 'vistas_db':vistas_db} #clave valor de los objetos almacenados
-	return (info_databases)
+	  		print ("\nAviso: El directorio "+ f + " ya existe")
+	return 0
 # eliminar los directorios temporales que se estan usando.
 	
 def remove_directory():
