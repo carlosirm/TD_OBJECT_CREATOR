@@ -50,7 +50,9 @@ def get_txt_data(file_name):
 	return (csv_data) 
 
 
-
+"""
+Obtiene una lista con los objetos de de tablas y vistas a crear a partir de lista de entrada td_db_objects.txt y table_view_rel.
+"""
 def get_folder_objets_list (data_dbo,data_tvr):
 
 	csv_data_tvr = list(data_tvr) # convertir a lista el objecto csv para que sea iterable
@@ -130,9 +132,8 @@ def get_folder_name (folder_objets_list):
 	#print (folder_name)
 	return (folder_name)
 
+
 # obtiene la lista de tablas y vistas a crear
-
-
 
 def set_directory_creator(folder_name):
 
@@ -146,9 +147,13 @@ def set_directory_creator(folder_name):
 	return 0
 # eliminar los directorios temporales que se estan usando.
 	
-def remove_directory():
-	shutil.rmtree('C:/TMP')
-	shutil.rmtree('C:/TERADATA')
+def remove_directory(path):
+	directorio = os.path.isdir(path)
+
+	if directorio == True:
+		shutil.rmtree(path)
+	else:
+		print ("\nAviso: No hay directorios que borrar")
 	return ("Directorio TMP y TERADATA Borrados")
 
 #txt_reader()	
