@@ -12,9 +12,9 @@ csv_data_tvr = get_txt_data('TABLE_VIEW_REL.txt')
 valores = get_folder_objets_list (csv_data_dbo,csv_data_tvr )
 
 print (valores)
-
+"""
 carpeta = get_folder_name (valores)
 set_directory_creator(carpeta)
 
 header_data = get_txt_header(csv_data_dbo)
-object_creator(header_data, valores)
+object_creator(header_data, valores)"""!!!

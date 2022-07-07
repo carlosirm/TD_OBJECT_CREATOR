@@ -1,24 +1,30 @@
 import teradatasql
 import os
+import pandas as pd
 from file_manager import set_directory_creator, txt_reader, get_txt_header,get_txt_data, remove_directory,  get_folder_name, get_folder_objets_list
 from parametrized_tbl import object_writer
 from object_creator import object_creator
  
 
+tips = pd.read_csv('TABLE_VIEW_REL.txt')  
+
+
+print (tips.head(2))
+
 """
 archi = get_txt_data('TABLE_VIEW_REL.txt')
 for a in archi:
 	print (a)
-"""
+
 
 csv_data_dbo = get_txt_data('td_db_objects.txt')
 csv_data_tvr = get_txt_data('TABLE_VIEW_REL.txt')
 
-"""
+
 print (csv_data_dbo)
 for c in csv_data_dbo:
 	print (c)
-"""
+
 
 valores = get_folder_objets_list (csv_data_dbo,csv_data_tvr )
 print (valores)
@@ -29,7 +35,7 @@ carpeta = get_folder_name (valores)
 
 set_directory_creator(carpeta)
 
-"""for v in valores:
+for v in valores:
 	print (v)
 
 
