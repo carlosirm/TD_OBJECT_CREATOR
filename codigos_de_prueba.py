@@ -1,22 +1,43 @@
 import teradatasql
 import os
 import pandas as pd
-from file_manager import set_directory_creator, txt_reader, get_txt_header,get_txt_data, remove_directory,  get_folder_name, get_folder_objets_list
+from file_manager import set_directory_creator, txt_reader, get_txt_header,get_txt_data, remove_directory,  get_folder_name, get_folder_objets_list,dbo_to_dataframe,csv_to_dataframe
 from parametrized_tbl import object_writer
 from object_creator import object_creator
  
 
-tips = pd.read_csv('TABLE_VIEW_REL.txt')  
 
 
-print (tips.head(2))
+
+##print (tips.head(2))
+
 
 """
-archi = get_txt_data('TABLE_VIEW_REL.txt')
-for a in archi:
-	print (a)
+Convierte el archivo td_db_objects.txt en un dataframe
+input: 
+"""
+
+csv_data_dbo = get_txt_data('td_db_objects.txt')
+
+df_dbo = dbo_to_dataframe (csv_data_dbo)
+df_tvr = csv_to_dataframe ('TABLE_VIEW_REL.txt')
+
+obj_list = get_folder_objets_list(df_dbo,df_tvr)
+
+print (obj_list)
 
 
+"""
+alien_0 = {'color': 'green'}                            # assign again green to key color.
+print("The alien is " + alien_0['color'] + ".")         # print the value 'green' for the key 'color'
+alien_0['color'] = 'yellow'                             # reassign the value for 'color'
+print("The alien is now " + alien_0['color'] + ".")     # check the change for the key color.
+"""
+#
+#print (df)
+
+
+"""
 csv_data_dbo = get_txt_data('td_db_objects.txt')
 csv_data_tvr = get_txt_data('TABLE_VIEW_REL.txt')
 

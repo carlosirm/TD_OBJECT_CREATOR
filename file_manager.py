@@ -2,6 +2,7 @@ import teradatasql
 import os
 import shutil # libreria que permite borrar las carpetas de windows que no estan vacias.
 import  csv ## llamada a la libreria csv.
+import pandas as pd
 
 # CREA DIRECTORIOS A PARTIR DE LO LEIDO EN EL ARCHIVO td_db_objects.txt
 
@@ -51,69 +52,37 @@ def get_txt_data(file_name):
 
 
 """
+Convierte el archivo td_db_objects.txt en un dataframe, excluyendo la primera linea de logueo de usuario.
+"""
+
+def dbo_to_dataframe (csv_data):
+
+	dbname = []
+	tblname = []
+
+	dic = {'databasename':[],'tablename':[]}
+
+	for linea in csv_data:
+		dic['databasename'].append(linea[0].upper())	# recorrer y agregar la col 0/databasename al dataframe.
+		dic['tablename'].append(linea[1].upper())		# recorrer y agregar la col 1/databasename al dataframe.
+
+	df = pd.DataFrame(dic)
+	return (df)
+
+"""
+convierte un csv en dataframe
+"""
+def csv_to_dataframe (filename):
+	df = pd.read_csv(filename) 
+	return (df) 
+
+"""
 Obtiene una lista con los objetos de de tablas y vistas a crear a partir de lista de entrada td_db_objects.txt y table_view_rel.
 """
-def get_folder_objets_list (data_dbo,data_tvr):
+def get_folder_objets_list (df_dbo,df_tvr):
 
-	csv_data_tvr = list(data_tvr) # convertir a lista el objecto csv para que sea iterable
-	csv_data_dbo = list(data_dbo) # convertir a lista el objecto csv para que sea iterable
-	folder_objets_list = []
-	csv_data_tvr_len = len(csv_data_tvr)
-
-	it_num = 0
-	
-	for l_data_dbo in csv_data_dbo:
-		l_data_dbo = [value.upper() for value in l_data_dbo]
-		it_num = it_num+1
-		#print ('iteracion num : ' + str(it_num) )
-		#print (l_data_dbo)
-		tvr_num = 0
-		
-		for l_data_tvr in csv_data_tvr:
-			l_data_tvr = [value.upper() for value in l_data_tvr]
-			tvr_num = tvr_num + 1
-			#print ('	\niteracion_cd: ' + str(it_num) + str(tvr_num))
-			#print ('	objeto dbo: ' + l_data_dbo[0].upper() + ' objeto tvr: ' + l_data_tvr[0].upper())
-			
-			temp_tvr = []
-	
-			# Condicional que agrega los objetos de vistas.
-			if l_data_dbo[0] == l_data_tvr[0]:
-				#print ('		' + l_data_dbo[0].upper() + ' +  ' + l_data_tvr[0].upper())
-				temp_tvr.append(l_data_tvr[0])	# and add databasename to  the list.
-				temp_tvr.append(l_data_tvr[2])	# and add paramdatabasename to  the list.
-				temp_tvr.append(l_data_dbo[1])	# and add tablename to  the list.
-				#print ('		TABLA agregada a la lista')
-				#print ('		' + str(temp_tvr))
-				folder_objets_list.append(temp_tvr)
-
-				temp_tvr = []
-
-				temp_tvr.append(l_data_tvr[1])	# and add databasename to  the list.
-				temp_tvr.append(l_data_tvr[3])	# and add paramdatabasename to  the list.
-				temp_tvr.append(l_data_dbo[1])	# and add tablename to  the list.
-				#'D_DMT_TABLES', '${DW_AMBIENTE}_DW_TABLES', 'TABLA_DE_PRUEBAS'#
-				#print ('		VISTA agregada a la lista')
-				#print ('		' + str(temp_tvr))
-				folder_objets_list.append(temp_tvr)
-
-				#print ('		Resultado Parcial lado C1')
-				#print (folder_objets_list)
-				break
-
-			# Si no es vista, se agrega como tabla. Ejemplo una base Staging.
-			elif csv_data_tvr_len ==  tvr_num and l_data_dbo[0] != l_data_tvr[0]:
-				#print (csv_data_tvr_len) 
-				#print (tvr_num)
-				#print ('		TABLA STAGING agregada a la lista')
-				#print ('		' + str(temp_tvr))
-				temp_tvr.append(l_data_dbo[0])	# and add databasename to  the list.
-				temp_tvr.append(l_data_tvr[2])	# and add paramdatabasename to  the list.
-				temp_tvr.append(l_data_dbo[1])	# and add tablename to  the list.
-				folder_objets_list.append(temp_tvr)
-				#print ('		Resultado Parcial lado C2')
-				#print (folder_objets_list)
-	return (folder_objets_list)
+	df_folder_objets_list = pd.merge(df_dbo, df_tvr, how='left', left_on = 'databasename', right_on = 'SOURCE_DB')
+	return (df_folder_objets_list)
 
 
 """
