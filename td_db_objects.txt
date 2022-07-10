@@ -3,3 +3,4 @@ D_dw_tables,DATOS_personales
 D_dw_tables,YIELD_SUMMARY_3FN                                           
 d_staging,YIELD_SUMMARY_3FN
 d_staging,YIELD_SUMMARY
+D_DMT_TABLES,NOSIS_JUDICIAL_OFFICE

@@ -42,7 +42,8 @@ def object_creator(df_folder_objets_list,cursor):
             print ("Generando vista "+ row['TARGET_DB'] + "." + row['tablename'])
             dw_out_file = open("C:/TERADATA/" + row['TARGET_DB'].upper() + "/"+ row['tablename'] +'.sql', "w", encoding="utf8")
             
-            sql_macro = "exec XA52251.DW_VIEW_CREATOR (  '"+ row['TARGET_DB'] +"', UPPER('"+ row['tablename'] +"'))"
+                        #exec XA52251.VIEW_CREATOR (  'D_DW_TABLES', 'DATOS_PERSONALES','${DW_AMBIENTE}_DW_TABLES','${DW_AMBIENTE}_DW_VIEWS')
+            sql_macro = "exec XA52251.VIEW_CREATOR (  '"+ row['TARGET_DB'] +"', '"+ row['tablename'] + "', '"+ row['PARAM_SOURCE_DB']+"','" + row['PARAM_TARGET_DB']+"')"
            
             cursor["cursor_view"].execute(sql_macro)
 
