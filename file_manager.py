@@ -63,8 +63,8 @@ def dbo_to_dataframe (csv_data):
 	dic = {'databasename':[],'tablename':[]}
 
 	for linea in csv_data:
-		dic['databasename'].append(linea[0].upper())	# recorrer y agregar la col 0/databasename al dataframe.
-		dic['tablename'].append(linea[1].upper())		# recorrer y agregar la col 1/databasename al dataframe.
+		dic['databasename'].append(linea[0].upper().strip())	# recorrer y agregar la col 0/databasename al dataframe.
+		dic['tablename'].append(linea[1].upper().strip())		# recorrer y agregar la col 1/databasename al dataframe.
 
 	df = pd.DataFrame(dic)
 	return (df)
@@ -88,21 +88,17 @@ def get_folder_objets_list (df_dbo,df_tvr):
 """
 Function: get_folder_name
 Get all the folders to be created, including views folders
-in: csv_data_dbo ('_csv.reader') contains all distint tables to be created.
-in: csv_data_dbo ('_csv.reader') contains database views related database tables and enviroment variable for these databases
+in: df_folder_objets_list (dataframe) contains all distint tables and views to be created.
+
 out: folder_name (list)
 """
-def get_folder_name (folder_objets_list):
-	folder_name =[]
-	#print (csv_data_dbo)
-	for folder_objects in folder_objets_list:
-		folder_name.append(folder_objects[0].upper())
-		folder_name=list(set(folder_name))
-	#print (folder_name)
+def get_folder_name (df_folder_objets_list):
+	pd.set_option('display.max_rows', None) 
+	folder_name = list(set(df_folder_objets_list["TARGET_DB"]))
 	return (folder_name)
 
 
-# obtiene la lista de tablas y vistas a crear
+# crea las carpetas de tablas y vistas
 
 def set_directory_creator(folder_name):
 

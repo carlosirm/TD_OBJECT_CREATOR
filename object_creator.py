@@ -7,52 +7,51 @@ from parametrized_tbl import object_writer
 # ARMA LAS DDL A PARTIR DE LA BASE Y EL NOMBRE DE LA TABLA.
 
 
-
-def object_creator(header_data, info_databases):
-
+def get_db_connection (header_data):
     print("Conectando a la Base de Datos")
     con = teradatasql.connect(host=header_data[0], user=header_data[1], password=header_data[2])
-    cursor = con.cursor()
-    cursor2 = con.cursor()
-    cursor3 = con.cursor()
-    cursor4 = con.cursor()
-
+    cursor_tbl = con.cursor()  
+    cursor_view = con.cursor() 
+    # convertir estos cursores en un diccionario y luego 
+    # usarlos en su correspondiente caso en el siguiente metodo
+    cursor = {"cursor_tbl":cursor_tbl,"cursor_view":cursor_view}
     
-    #print (txt_read[0])
-    #base_tabla = [x.upper() for x in base_tabla]
+    
+    return (cursor)
 
-    for registro in info_databases['base_tablas']:
-        print (info_databases['base_tablas'])
-        registro = [x.upper() for x in registro] #convertir las base_tabla a mayusculas
-        dwtbl_out_file = open("C:/TMP/"+registro[0]+"/"+registro[1]+'.txt', "w", encoding="utf8")
-        print ("     OK: Consultando la tabla..."+registro[0]+"."+registro[1])
-        sql = "SHOW TABLE "+registro[0]+"."+registro[1]
-        print (sql)
-        try:
-            cursor.execute(sql)
-        except teradatasql.OperationalError :
-            print ("ERROR: No existe la tabla "+registro[0]+"."+registro[1])
-        for reg in cursor:
-            dwtbl_out_file.write(reg[0])
-        dwtbl_out_file.close()
-        
-        # si la base de D_DW_TABLES ejecuta la macro de las vistas.
-        
-        tbl_a_vistas = info_databases['vistas_db']  # Aqui esta almacenado un diccionario con todas las bases de datos de vistas.
-        
-        for tvr in tbl_a_vistas:
-            if registro[0] == tvr[0].upper():
-                print ("Generando vista "+registro[0]+"."+registro[1])
-                dw_out_file = open("C:/TERADATA/" + tvr[1].upper() + "/"+registro[1]+'.sql', "w", encoding="utf8")
-                
-                sql2 = "exec XA52251.DW_VIEW_CREATOR (  '"+registro[0]+"', UPPER('"+registro[1]+"'))"
-               
-                cursor2.execute(sql2)
-                for reg in cursor2:
-                    print("for 1" + reg[0])
-                    dw_out_file.write(reg[0]+'\n')
-                dw_out_file.close()
+def object_creator(df_folder_objets_list,cursor):
+
+    df_folder_objets_list = df_folder_objets_list.reset_index()  # make sure indexes pair with number of rows
+
+    for index, row in df_folder_objets_list.iterrows():
+        print (row)
+        if row['TARGET_DB_TYPE'] == 'TABLE':
+            dwtbl_out_file = open("C:/TMP/"+ row['TARGET_DB']+"/"+ row['tablename']+'.txt', "w", encoding="utf8")
+            print ("     OK: Consultando la tabla..."+ row['TARGET_DB'] +"."+ row['tablename'])
+            sql_show = "SHOW TABLE "+ row['TARGET_DB'] +"."+ row['tablename']
+            try:
+                cursor["cursor_tbl"].execute(sql_show)
+                print (cursor["cursor_tbl"].execute(sql_show))
+            except teradatasql.OperationalError :
+                print ("ERROR: No existe la tabla "+registro[0]+"."+registro[1])
+            for reg_tbl in cursor["cursor_tbl"]:
+                dwtbl_out_file.write(reg_tbl[0].upper())
+            dwtbl_out_file.close()
             
+        else:
+            print ("Generando vista "+ row['TARGET_DB'] + "." + row['tablename'])
+            dw_out_file = open("C:/TERADATA/" + row['TARGET_DB'].upper() + "/"+ row['tablename'] +'.sql', "w", encoding="utf8")
+            
+            sql_macro = "exec XA52251.DW_VIEW_CREATOR (  '"+ row['TARGET_DB'] +"', UPPER('"+ row['tablename'] +"'))"
+           
+            cursor["cursor_view"].execute(sql_macro)
+
+            for reg_view in cursor["cursor_view"]:
+                print (reg_view[0].upper())
+                dw_out_file.write(reg_view[0].upper()+'\n')
+            dw_out_file.close()
+            
+
     return 0
 
 """
