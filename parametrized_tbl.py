@@ -3,12 +3,12 @@ import  csv ## llamada a la libreria csv.
 #print(string.replace("Caracas", "Valencia"))
 
 
-def object_writer(df_folder_objets_list):
+def object_writer(df_valid_obj):
 
-	df_folder_objets_list = df_folder_objets_list.reset_index()  # make sure indexes pair with number of rows
+	df_valid_obj = df_valid_obj.reset_index()  # make sure indexes pair with number of rows
 
-	for index, registro in df_folder_objets_list.iterrows():
-		if registro['TARGET_DB_TYPE'] == 'TABLE':
+	for index, registro in df_valid_obj.iterrows():
+		if registro['TARGET_DB_TYPE'] == 'TABLE' and registro['validity'] == True:
 			#print ('imprimiendo registro')
 			#print (registro)
 			#registro = [x.upper() for x in registro] #convertir las base_tabla a mayusculas

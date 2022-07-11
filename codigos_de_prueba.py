@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from file_manager import set_directory_creator, txt_reader, get_txt_header,get_txt_data, remove_directory,  get_folder_name, get_folder_objets_list,dbo_to_dataframe,csv_to_dataframe
 from parametrized_tbl import object_writer
-from object_creator import object_creator, get_db_connection
+from object_creator import object_creator, get_db_connection, object_checker
  
 
 
@@ -43,21 +43,8 @@ set_directory_creator (carpetas)
 # Open the connection with the DB.
 txt_read = txt_reader('td_db_objects.txt')
 header_data = get_txt_header (txt_read) 
-cursor = get_db_connection(header_data)
 
+cursor_tbl = get_db_connection (header_data)
 
-obj_list = obj_list.reset_index()  # make sure indexes pair with number of rows
+object_checker(obj_list,cursor_tbl)
 
-for index, row in obj_list.iterrows():
-	print (row)
-	dw_out_file = open("C:/TERADATA/D_DW_VIEWS/DATOS_PERSONALES.sql", "w", encoding="utf8")
-
-	sql_macro = "exec XA52251.VIEW_CREATOR (  'D_DW_TABLES', 'DATOS_PERSONALES','${DW_AMBIENTE}_DW_TABLES','${DW_AMBIENTE}_DW_VIEWS')"
-	cursor.execute(sql_macro)
-	for reg in cursor:
-		print(reg[0])
-		dw_out_file.write(reg[0].upper()+'\n')
-	dw_out_file.close()
-    
-
-    

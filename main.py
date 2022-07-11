@@ -2,7 +2,7 @@ import teradatasql
 import os
 from file_manager import set_directory_creator, txt_reader, get_txt_header,get_txt_data, remove_directory,  get_folder_name, get_folder_objets_list,dbo_to_dataframe,csv_to_dataframe
 from parametrized_tbl import object_writer
-from object_creator import object_creator, get_db_connection
+from object_creator import object_creator, get_db_connection, object_checker
  
 
 #Leer el archivo td_db_objects
@@ -36,9 +36,11 @@ txt_read = txt_reader('td_db_objects.txt')
 header_data = get_txt_header (txt_read) 
 cursor_actual = get_db_connection(header_data)
 
-object_creator(obj_list,cursor_actual)
+valid_obj = object_checker(obj_list,cursor_actual)
 
-object_writer (obj_list)
+object_creator(valid_obj,cursor_actual)
+
+object_writer (valid_obj)
 
 
 

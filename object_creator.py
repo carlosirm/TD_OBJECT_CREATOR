@@ -2,6 +2,7 @@ import teradatasql
 import os
 from file_manager import set_directory_creator, txt_reader, get_txt_header, remove_directory
 from parametrized_tbl import object_writer
+import pandas as pd
  
 
 # ARMA LAS DDL A PARTIR DE LA BASE Y EL NOMBRE DE LA TABLA.
@@ -19,13 +20,48 @@ def get_db_connection (header_data):
     
     return (cursor)
 
-def object_creator(df_folder_objets_list,cursor):
+# Verifies if a table is valid or exist in the database.
+# Return true if exist, false if not.
+def object_checker (df_folder_objets_list,cursor):
+
+    dic_valid_obj = {'TARGET_DB_TYPE':[],'SOURCE_DB':[],'TARGET_DB':[],'PARAM_SOURCE_DB':[],'PARAM_TARGET_DB':[],'tablename':[],'validity':[]}
 
     df_folder_objets_list = df_folder_objets_list.reset_index()  # make sure indexes pair with number of rows
-
     for index, row in df_folder_objets_list.iterrows():
 
-        if row['TARGET_DB_TYPE'] == 'TABLE':
+        dic_valid_obj['TARGET_DB_TYPE'].append(row['TARGET_DB_TYPE'])
+        dic_valid_obj['SOURCE_DB'].append(row['SOURCE_DB'])
+        dic_valid_obj['TARGET_DB'].append(row['TARGET_DB'])
+        dic_valid_obj['PARAM_SOURCE_DB'].append(row['PARAM_SOURCE_DB'])
+        dic_valid_obj['PARAM_TARGET_DB'].append(row['PARAM_TARGET_DB'])
+        dic_valid_obj['tablename'].append(row['tablename'])
+        
+        sql_show = "SHOW TABLE "+ row['TARGET_DB'] +"."+ row['tablename']
+        try:
+            cursor["cursor_tbl"].execute(sql_show)
+            #print (cursor["cursor_tbl"].execute(sql_show))
+        except teradatasql.OperationalError :
+            print ("ERROR: No existe la tabla "+ row['TARGET_DB'] +"."+ row['tablename'])
+
+            dic_valid_obj['validity'].append(False)
+            continue 
+            
+
+        dic_valid_obj['validity'].append(True)   
+        
+        df_valid_obj = pd.DataFrame(dic_valid_obj)
+            
+    print (df_valid_obj)
+
+    return (df_valid_obj )     #Objetos validos para consultar en la base.                
+
+def object_creator(df_valid_obj,cursor):
+
+    df_valid_obj = df_valid_obj.reset_index()  # make sure indexes pair with number of rows
+
+    for index, row in df_valid_obj.iterrows():
+
+        if row['TARGET_DB_TYPE'] == 'TABLE' and row['validity'] == True: #código duplicado en object_writer Mejorar
             dwtbl_out_file = open("C:/TMP/"+ row['TARGET_DB']+"/"+ row['tablename']+'.txt', "w", encoding="utf8")
             
             sql_show = "SHOW TABLE "+ row['TARGET_DB'] +"."+ row['tablename']
@@ -33,7 +69,10 @@ def object_creator(df_folder_objets_list,cursor):
                 cursor["cursor_tbl"].execute(sql_show)
                 #print (cursor["cursor_tbl"].execute(sql_show))
             except teradatasql.OperationalError :
-                print ("ERROR: No existe la tabla "+registro[0]+"."+registro[1])
+                print ("ERROR: No existe la tabla "+ row['TARGET_DB'] +"."+ row['tablename'])
+                continue
+            
+            #dwtbl_out_file = open("C:/TMP/"+ row['TARGET_DB']+"/"+ row['tablename']+'.txt', "w", encoding="utf8")
             for reg_tbl in cursor["cursor_tbl"]:
                 print ("Generando la tabla:     "+ row['TARGET_DB'] +"."+ row['tablename'] )
                 dwtbl_out_file.write(reg_tbl[0].upper())

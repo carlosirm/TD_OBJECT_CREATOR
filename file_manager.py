@@ -49,8 +49,8 @@ Convierte el archivo td_db_objects.txt en un dataframe, excluyendo la primera li
 
 def dbo_to_dataframe (csv_data):
 
-	dbname = []
-	tblname = []
+	#dbname = []
+	#tblname = []
 
 	dic = {'databasename':[],'tablename':[]}
 
