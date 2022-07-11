@@ -15,8 +15,6 @@ out: txt_read ('_csv.reader')
 def txt_reader(file_name):
 	in_file = open( file_name , "r", encoding="utf8")
 	txt_read = csv.reader(in_file, delimiter=',')
-	#print (type (txt_read))
-	
 	return (txt_read)
 
 """
@@ -29,7 +27,6 @@ def get_txt_header(txt_read):
     
 	header_data = next(txt_read)
 	print ("Obteniendo datos de autenticación...")
-	#print (type (header_data))
 	return (header_data) 
 
 
@@ -43,11 +40,6 @@ def get_txt_data(file_name):
 
 	csv_data = txt_reader(file_name)
 	next(csv_data)
-
-	#in_file = open( file_name , "r", encoding="utf8")
-	#csv_data = csv.reader(in_file, delimiter=',')
-	#print (csv_data)
-	
 	return (csv_data) 
 
 
@@ -106,7 +98,7 @@ def set_directory_creator(folder_name):
 		try:
 			os.makedirs("C:/TMP/"+ f)
 			os.makedirs("C:/TERADATA/"+ f)
-			#print ('crear directorio de vistas ' + tvr[1]) 
+			
 		except FileExistsError :
 	  		print ("\nAviso: El directorio "+ f + " ya existe")
 	return 0
@@ -121,7 +113,7 @@ def remove_directory(path):
 		print ("\nAviso: No hay directorios que borrar")
 	return ("Directorio TMP y TERADATA Borrados")
 
-#txt_reader()	
+
 
 	
 

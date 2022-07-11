@@ -46,16 +46,18 @@ header_data = get_txt_header (txt_read)
 cursor = get_db_connection(header_data)
 
 
-object_creator (obj_list,cursor)
+obj_list = obj_list.reset_index()  # make sure indexes pair with number of rows
 
-"""
-dw_out_file = open("C:/TERADATA/D_DW_VIEWS/DATOS_PERSONALES.sql", "w", encoding="utf8")
-            
-sql_macro = "exec XA52251.DW_VIEW_CREATOR (  'D_DW_TABLES', 'DATOS_PERSONALES')"
+for index, row in obj_list.iterrows():
+	print (row)
+	dw_out_file = open("C:/TERADATA/D_DW_VIEWS/DATOS_PERSONALES.sql", "w", encoding="utf8")
 
-cursor["cursor_view"].execute(sql_macro)
+	sql_macro = "exec XA52251.VIEW_CREATOR (  'D_DW_TABLES', 'DATOS_PERSONALES','${DW_AMBIENTE}_DW_TABLES','${DW_AMBIENTE}_DW_VIEWS')"
+	cursor.execute(sql_macro)
+	for reg in cursor:
+		print(reg[0])
+		dw_out_file.write(reg[0].upper()+'\n')
+	dw_out_file.close()
+    
 
-for reg in cursor["cursor_view"]:
-    print(reg[0])
-    dw_out_file.write(reg[0].upper()+'\n')
-dw_out_file.close()"""
+    

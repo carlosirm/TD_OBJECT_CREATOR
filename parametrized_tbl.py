@@ -9,8 +9,8 @@ def object_writer(df_folder_objets_list):
 
 	for index, registro in df_folder_objets_list.iterrows():
 		if registro['TARGET_DB_TYPE'] == 'TABLE':
-			print ('imprimiendo registro')
-			print (registro)
+			#print ('imprimiendo registro')
+			#print (registro)
 			#registro = [x.upper() for x in registro] #convertir las base_tabla a mayusculas
 			input_file = open("C:/TMP/"+registro['TARGET_DB']+"/"+registro['tablename']+'.txt', "r", encoding="utf8")
 			output_file = open("C:/TERADATA/"+registro['TARGET_DB']+"/"+registro['tablename']+'.sql', "w", encoding="utf8")
@@ -32,7 +32,7 @@ def object_writer(df_folder_objets_list):
 					output_file.write(linea[0]+"\n")
 				
 			input_file.close()
-			print ('Archivo /'+registro['TARGET_DB']+"/"+registro['tablename']+'.sql CREADO')
+			print ('Archivo C:/TERADATA/'+registro['TARGET_DB']+"/"+registro['tablename']+'.sql CREADO')
 			output_file.close()
 	return 'nada'
 	
