@@ -7,11 +7,12 @@ def object_writer(df_valid_obj):
 
 	df_valid_obj = df_valid_obj.reset_index()  # make sure indexes pair with number of rows
 
+
+
 	for index, registro in df_valid_obj.iterrows():
 		if registro['TARGET_DB_TYPE'] == 'TABLE' and registro['validity'] == True:
-			#print ('imprimiendo registro')
-			#print (registro)
-			#registro = [x.upper() for x in registro] #convertir las base_tabla a mayusculas
+			
+			
 			input_file = open("C:/TMP/"+registro['TARGET_DB']+"/"+registro['tablename']+'.txt', "r", encoding="utf8")
 			output_file = open("C:/TERADATA/"+registro['TARGET_DB']+"/"+registro['tablename']+'.sql', "w", encoding="utf8")
 			output_file.write("SELECT 1 FROM dbc.tablesv\n")
@@ -23,12 +24,11 @@ def object_writer(df_valid_obj):
 			for linea in archivo:
 				if len(linea) > 0:
 					
-					#db_schema.append(reg[0])
 					linea[0]=linea[0].replace(registro['TARGET_DB'], registro['PARAM_TARGET_DB'])
 					linea[0]=linea[0].replace("FALLBACK", "NO FALLBACK")
 					linea[0]=linea[0].replace("DEFAULT MERGEBLOCKRATIO,", "DEFAULT MERGEBLOCKRATIO")
 					linea[0]=linea[0].replace("MAP = TD_MAP1", "")
-					#print (linea[0])
+					
 					output_file.write(linea[0]+"\n")
 				
 			input_file.close()
