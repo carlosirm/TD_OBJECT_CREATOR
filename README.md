@@ -1,2 +1,3 @@
 # TD_OBJECT_CREATOR
- codigo del creador de objetos teradata
+ This it's an automated tool for ETL and Data Developers. It enable you to create tables and views package's of production enviroment from develoment enviromente.
+ 
