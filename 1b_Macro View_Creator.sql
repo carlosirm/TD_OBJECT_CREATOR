@@ -4,7 +4,7 @@ REPLACE   MACRO VIEW_CREATOR (
     inparamsourcedbname VARCHAR(60),
     inparamtargetdbname VARCHAR(60))
     AS ( /*
-    exec XA52251.VIEW_CREATOR (  'D_DW_TABLES', 'DATOS_PERSONALES','${DW_AMBIENTE}_DW_TABLES')
+    exec TERADEV.VIEW_CREATOR (  'DEV_DWH_TABLES', 'DATOS_PERSONALES','${DW_AMBIENTE}_DWH_TABLES')
     
     :intablename
     */
