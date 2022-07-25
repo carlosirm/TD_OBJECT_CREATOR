@@ -1,7 +1,7 @@
-192.168.183.128,XA52251,teradev
-D_dw_tables,pepe_perez
-D_dw_tables,DATOS_personales
-D_dw_tables,YIELD_SUMMARY_3FN
-d_staging,YIELD_SUMMARY_3FN
-d_staging,YIELD_SUMMARY
-D_DMT_TABLES,NOSIS_JUDICIAL_OFFICE
+192.168.183.128,teradev,teradev
+dev_dwh_tables,pepe_perez
+dev_dwh_tables,DATOS_personales
+dev_dwh_tables,YIELD_SUMMARY_3FN
+dev_staging,YIELD_SUMMARY_3FN
+dev_staging,YIELD_SUMMARY
+dev_DMT_TABLES,LOCAL_OFFICE
