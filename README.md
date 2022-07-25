@@ -4,7 +4,7 @@
  Use this at your own convinience and your own risk. Suitable for private and not for cloud enviroment.
  
 ## Installation
-1. **Run a_install_python_libraries**. It contains pip installation of some libraries such teradatasql and pandas.
+1. **Run a_install_python_libraries**. It contains pip installation of some libraries such ```teradatasql``` and ```pandas```.
 2. **Run b_Macro View_Creator** in teradata database into your own teradata database user.
 
 3. **Configure TABLE_VIEW_REL.TXT.** This file contains line by line the relationship between tables, views and enviroment variable in csv format.
@@ -13,7 +13,7 @@
 	The first line is the header of the file. Plase don't modify, Risk to breake the application.
 	``` TARGET_DB_TYPE,SOURCE_DB,TARGET_DB,PARAM_TARGET_DB,PARAM_SOURCE_DB ```
 	
-	This fields are:
+	
 	**TARGET_DB_TYPE:** Target's Object type. Only can be TABLE or VIEW.
 	
 	**SOURCE_DB:** The name of the source database. Example DEV_DWH_TABLES. Please note that this databases starts with 'DEV_' which stand for 'DEVELOPMENT'
@@ -45,7 +45,7 @@
 	
 	```TABLE,DEV_STAGING,DEV_STAGING,${DWH_ENVIROMENT}_STAGING,${DWH_ENVIROMENT}_STAGING```
 
-4. Configure the td_db_objects.txt. This file contains the data loggin to the teradata server.
+4. **Configure the td_db_objects.txt.** This file contains the data loggin to the teradata server.
 	
 	Modify the first line with this structure. 
 	IP Server, user , password.
@@ -62,4 +62,4 @@
 	```
 	
 	
-5.- Execute 
+5.- **Execute objetos_td.bat**
