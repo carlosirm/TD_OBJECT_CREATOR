@@ -86,18 +86,20 @@ out: folder_name (list)
 """
 def get_folder_name (df_folder_objets_list):
 	pd.set_option('display.max_rows', None) 
-	folder_name = list(set(df_folder_objets_list["TARGET_DB"]))
+	folder_name = list(set(df_folder_objets_list["TARGET_DB_TYPE"] +'S/' + df_folder_objets_list["TARGET_DB"]))
 	return (folder_name)
 
 
 # crea las carpetas de tablas y vistas
 
 def set_directory_creator(folder_name):
+	print 
 
 	for f in folder_name:
 		try:
 			os.makedirs("C:/TMP/"+ f)
 			os.makedirs("C:/TERADATA/"+ f)
+			
 			
 		except FileExistsError :
 	  		print ("\nAviso: El directorio "+ f + " ya existe")

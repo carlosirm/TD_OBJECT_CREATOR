@@ -13,8 +13,8 @@ def object_writer(df_valid_obj):
 		if registro['TARGET_DB_TYPE'] == 'TABLE' and registro['validity'] == True:
 			
 			
-			input_file = open("C:/TMP/"+registro['TARGET_DB']+"/"+registro['tablename']+'.txt', "r", encoding="utf8")
-			output_file = open("C:/TERADATA/"+registro['TARGET_DB']+"/"+registro['tablename']+'.sql', "w", encoding="utf8")
+			input_file = open("C:/TMP/TABLES/"+registro['TARGET_DB']+"/"+registro['tablename']+'.txt', "r", encoding="utf8")
+			output_file = open("C:/TERADATA/TABLES/"+registro['TARGET_DB']+"/"+registro['tablename']+'.sql', "w", encoding="utf8")
 			output_file.write("SELECT 1 FROM dbc.tablesv\n")
 			output_file.write("WHERE databasename = '" + registro['PARAM_TARGET_DB'] + "' AND TRIM(TABLENAME) = '"+registro['tablename']+"';\n\n")
 			output_file.write(".IF ACTIVITYCOUNT = 0 THEN .GOTO NEXT\n\n")
@@ -32,7 +32,7 @@ def object_writer(df_valid_obj):
 					output_file.write(linea[0]+"\n")
 				
 			input_file.close()
-			print ('Archivo C:/TERADATA/'+registro['TARGET_DB']+"/"+registro['tablename']+'.sql CREADO')
+			print ('Archivo C:/TERADATA/TABLES/'+registro['TARGET_DB']+"/"+registro['tablename']+'.sql CREADO')
 			output_file.close()
 	return 'nada'
 	

@@ -64,7 +64,7 @@ def object_creator(df_valid_obj,cursor):
 
         if row['TARGET_DB_TYPE'] == 'TABLE' and row['validity'] == True: #código duplicado en object_writer Mejorar
 
-            dwtbl_out_file = open("C:/TMP/"+ row['TARGET_DB']+"/"+ row['tablename']+'.txt', "w", encoding="utf8")
+            dwtbl_out_file = open("C:/TMP/TABLES/"+ row['TARGET_DB']+"/"+ row['tablename']+'.txt', "w", encoding="utf8")
             
             sql_show = "SHOW TABLE "+ row['TARGET_DB'] +"."+ row['tablename']
             try:
@@ -82,7 +82,7 @@ def object_creator(df_valid_obj,cursor):
     # Creación de las vistas en la carpeta Teradata        
         elif row['TARGET_DB_TYPE'] == 'VIEW' and row['validity'] == True:
             print ("Generando vista:        "+ row['TARGET_DB'] + "." + row['tablename'] + '\n')
-            dw_out_file = open("C:/TERADATA/" + row['TARGET_DB'].upper() + "/"+ row['tablename'] +'.sql', "w", encoding="utf8")
+            dw_out_file = open("C:/TERADATA/VIEWS/" + row['TARGET_DB'].upper() + "/"+ row['tablename'] +'.sql', "w", encoding="utf8")
             
                         #exec VIEW_CREATOR (  'D_DW_TABLES', 'DATOS_PERSONALES','${DW_AMBIENTE}_DW_TABLES','${DW_AMBIENTE}_DW_VIEWS')
             sql_macro = "exec VIEW_CREATOR (  '"+ row['SOURCE_DB'] +"', '"+ row['tablename'] + "', '"+ row['PARAM_SOURCE_DB']+"','" + row['PARAM_TARGET_DB']+"')"
